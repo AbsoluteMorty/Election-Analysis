@@ -54,12 +54,25 @@ file_to_save = os.path.join("analysis", "election_analysis.txt")
 with open(file_to_save, "w") as txt_file:
 
     # write three counties to the file
-    winning_candidate_summary = (
+    election_results = (
     f"  Election Results!\n"
     f"-------------------------\n"
-    f"Winner: {winning_candidate}\n"
-    f"Winning Vote Count: {winning_count:,}\n"
-    f"Winning Percentage: {winning_percentage:.1f}%\n"
+    f"Total Votes: {total_votes:,}\n"
     f"-------------------------\n")
+
+    txt_file.write(election_results)
+
+    for candidate_name in candidate_votes:
+        votes = candidate_votes[candidate_name]
+        vote_percentage = float(votes) / float(total_votes) * 100
+
+        txt_file.write(f"{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n")
+    txt_file.write("--------------------------\n")
+    winning_candidate_summary = (
+        f"Winner: {winning_candidate}\n"
+        f"Winning Vote Count: {winning_count:,}\n"
+        f"Winning Percentage: {winning_percentage:.1f}%\n"
+        f"-------------------------\n")
+
     txt_file.write(winning_candidate_summary)
 
